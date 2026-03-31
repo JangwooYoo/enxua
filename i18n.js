@@ -410,7 +410,7 @@ function initI18n() {
     const langSwitchBtns = document.querySelectorAll('[data-lang]');
     const currentLangBtn = document.getElementById('current-lang');
 
-    // Map of flag & display text for the main button
+    // Full label map (desktop)
     const langDisplayMap = {
         'en': '🇺🇸 English',
         'es': '🇪🇸 Español',
@@ -422,6 +422,32 @@ function initI18n() {
         'zh-CN': '🇨🇳 简体中文',
         'zh-TW': '🇭🇰 繁體中文'
     };
+
+    // Short label map (mobile ≤768px)
+    const langShortMap = {
+        'en': 'EN',
+        'es': 'ES',
+        'fr': 'FR',
+        'it': 'IT',
+        'pt': 'PT',
+        'ko': 'KR',
+        'ja': 'JP',
+        'zh-CN': 'CN',
+        'zh-TW': 'TW'
+    };
+
+    // Returns correct label depending on screen width
+    const getLangLabel = (lang) => {
+        return window.innerWidth <= 768
+            ? (langShortMap[lang] || 'EN')
+            : (langDisplayMap[lang] || langDisplayMap['en']);
+    };
+
+    // Update button label on resize too
+    window.addEventListener('resize', () => {
+        const saved = localStorage.getItem('enxua_lang') || 'en';
+        currentLangBtn.textContent = getLangLabel(saved);
+    });
 
     const setLanguage = (lang) => {
         // Fallback to en if unsupported
@@ -444,8 +470,8 @@ function initI18n() {
             }
         });
 
-        // Update Dropdown Button Text
-        currentLangBtn.textContent = langDisplayMap[finalLang] || langDisplayMap['en'];
+        // Update Dropdown Button Text — short on mobile, full on desktop
+        currentLangBtn.textContent = getLangLabel(finalLang);
 
         // Persist the choice to localStorage overrides the system settings on the next visit
         try {
