@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Temp/test files
+favicon-test.html
+favicon-preview.html
+favicon-opt1.png
+favicon-opt2.png
+favicon-opt3.png
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local server
+server.ps1

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+
+  <!-- White Rounded Square App Base -->
+  <rect x="2" y="2" width="96" height="96" rx="22" fill="#f4f5f7"/>
+  <rect x="2" y="2" width="96" height="48" rx="22" fill="rgba(255,255,255,0.5)"/>
+
+  <!-- Dark Navy Hexagon body -->
+  <polygon points="50,14  81,32  81,68  50,86  19,68  19,32" fill="#111827"/>
+
+  <!-- Lime accent: top-left inner facet (gives 3D cube illusion) -->
+  <polygon points="50,30  69,41  69,50  50,50  31,50  31,41" fill="#CFFF04" opacity="0.15"/>
+
+  <!-- 3D Cube illusion: top face -->
+  <polygon points="50,32  66,41  50,50  34,41" fill="#CFFF04" opacity="0.9"/>
+
+  <!-- 3D Cube illusion: left face -->
+  <polygon points="34,41  50,50  50,66  34,57" fill="#8ba802" opacity="0.95"/>
+
+  <!-- 3D Cube illusion: right face -->
+  <polygon points="66,41  50,50  50,66  66,57" fill="#a4cc00" opacity="0.8"/>
+
+  <!-- Bright highlight edge on cube top -->
+  <line x1="50" y1="32" x2="66" y2="41" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
+  <line x1="50" y1="32" x2="34" y2="41" stroke="#ffffff" stroke-width="1.5" opacity="0.4"/>
+
+</svg>
