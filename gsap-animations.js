@@ -24,8 +24,9 @@ function initGSAP() {
     }
 
     // Initialize Immersive WebGL Background
+    let vantaEffect = null;
     if (typeof VANTA !== 'undefined') {
-        VANTA.NET({
+        vantaEffect = VANTA.NET({
             el: "#section-1",
             mouseControls: true,
             touchControls: true,
@@ -59,19 +60,22 @@ function initGSAP() {
                     start: "top 60%",
                     end: "top 20%",
                     scrub: 1,
+                    invalidateOnRefresh: true,
                 }
             });
         }
 
-        // Pinning mechanism
+        // Pinning mechanism — invalidateOnRefresh ensures end value
+        // is recalculated each time ScrollTrigger.refresh() is called
         if (!isLastCard) {
             ScrollTrigger.create({
                 trigger: card,
                 start: "top top",
                 end: () => `+=${window.innerHeight}`,
                 pin: true,
-                pinSpacing: false, // The next section will overlap this one
-                id: `pin-${index}`
+                pinSpacing: false,
+                id: `pin-${index}`,
+                invalidateOnRefresh: true,
             });
         }
     });
@@ -85,9 +89,6 @@ function initGSAP() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                // To support ScrollTrigger pin space calculations, 
-                // we'll jump using vanilla scrollIntoView, but GSAP ScrollTo is better if we loaded the plugin.
-                // Since we didn't load ScrollToPlugin, we use native behavior.
                 targetElement.scrollIntoView({ behavior: 'smooth' });
             }
         });
@@ -98,6 +99,27 @@ function initGSAP() {
     ScrollTrigger.create({
         start: "top -50",
         end: 99999,
-        toggleClass: { className: 'scrolled', targets: navbar }
+        toggleClass: { className: 'scrolled', targets: navbar },
+        invalidateOnRefresh: true,
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // Resize handler: Recalculate all ScrollTrigger measurements
+    // whenever the viewport dimensions change.
+    // Without this, pinned sections retain stale pixel offsets
+    // after the window is resized, causing clipped / broken layout.
+    // ─────────────────────────────────────────────────────────────
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Force GSAP to re-read every element's bounding rect
+            ScrollTrigger.refresh(true);
+
+            // Also resize the WebGL canvas so it fills the new viewport
+            if (vantaEffect && vantaEffect.resize) {
+                vantaEffect.resize();
+            }
+        }, 200); // 200 ms debounce — fast enough, avoids thrashing
     });
 }
