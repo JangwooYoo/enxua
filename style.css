@@ -736,6 +736,12 @@ hr { border: 0; height: 1px; background: rgba(128,128,128,0.2); margin: 12px 0; 
     .anchor-menu { display: none; }
     .word { font-size: 14vw; }
     .sutera-subtitle { font-size: 1rem; }
+
+    /* Hide Login button and Download CTA on tablets too */
+    .auth-container,
+    .btn-outline {
+        display: none !important;
+    }
 }
 
 /* =========================================== */
@@ -755,17 +761,17 @@ hr { border: 0; height: 1px; background: rgba(128,128,128,0.2); margin: 12px 0; 
         gap: 8px;
     }
 
-    /* Hide Login button and Download CTA on mobile */
+    /* Hide Login button and Download CTA on mobile (already hidden at 1024px) */
     .auth-container,
     .btn-outline {
         display: none !important;
     }
 
-    /* Compact language button — show only abbreviation */
+    /* Language button — show flag emoji only, adjust padding for emoji size */
     #current-lang {
-        font-size: 0.8rem;
-        padding: 4px 8px;
-        letter-spacing: 0.5px;
+        font-size: 1.1rem;
+        padding: 4px 6px;
+        letter-spacing: 0;
     }
 
     /* Compact dropdown menu */

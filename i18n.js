@@ -423,17 +423,17 @@ function initI18n() {
         'zh-TW': '🇭🇰 繁體中文'
     };
 
-    // Short label map (mobile ≤768px)
+    // Short label map (mobile ≤768px) — flag emoji only, no text
     const langShortMap = {
-        'en': 'EN',
-        'es': 'ES',
-        'fr': 'FR',
-        'it': 'IT',
-        'pt': 'PT',
-        'ko': 'KR',
-        'ja': 'JP',
-        'zh-CN': 'CN',
-        'zh-TW': 'TW'
+        'en': '🇺🇸',
+        'es': '🇪🇸',
+        'fr': '🇫🇷',
+        'it': '🇮🇹',
+        'pt': '🇵🇹',
+        'ko': '🇰🇷',
+        'ja': '🇯🇵',
+        'zh-CN': '🇨🇳',
+        'zh-TW': '🇭🇰'
     };
 
     // Returns correct label depending on screen width
