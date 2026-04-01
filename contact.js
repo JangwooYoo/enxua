@@ -1,24 +1,12 @@
 // ─── Contact Form — ENXUA ────────────────────────────────────────────────────
-//
-// EMAILJS SETUP (one-time):
-//   1. Create a free account at https://www.emailjs.com/
-//   2. Add an Email Service → copy the Service ID → set EMAILJS_SERVICE_ID
-//   3. Create an Email Template with these variables:
-//        {{from_name}}  {{from_email}}  {{from_phone}}  {{message}}
-//      Set the template "To Email" or "Reply To" to: un@enxua.com
-//   4. Copy the Template ID → set EMAILJS_TEMPLATE_ID
-//   5. Copy your Public Key (Account → API Keys) → set EMAILJS_PUBLIC_KEY
-//
-// ─────────────────────────────────────────────────────────────────────────────
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ← replace
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ← replace
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ← replace
+const EMAILJS_SERVICE_ID  = 'service_zqqx';
+const EMAILJS_TEMPLATE_ID = 'template_m3irihe';
+const EMAILJS_PUBLIC_KEY  = 'hT739dK-AjAw5VKv1';
 
 // ─── EmailJS init ─────────────────────────────────────────────────────────────
 (function initEmailJS() {
-    if (typeof emailjs !== 'undefined' &&
-        EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 })();
 
@@ -90,23 +78,11 @@ async function sendEmail() {
     const message = document.getElementById('cf-message').value.trim();
 
     const params = {
-        from_name:  name,
-        from_email: email,
-        from_phone: phone,
-        message:    message,
-        to_email:   'un@enxua.com',
+        name:    name,
+        email:   email,
+        phone:   phone,
+        message: message,
     };
-
-    // If EmailJS is not configured, fall back to mailto
-    if (typeof emailjs === 'undefined' ||
-        EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
-        const subject = encodeURIComponent(`[ENXUA 문의] ${name}`);
-        const body = encodeURIComponent(
-            `이름: ${name}\n이메일: ${email}\n연락처: ${phone}\n\n${message}`
-        );
-        window.location.href = `mailto:un@enxua.com?subject=${subject}&body=${body}`;
-        return true;
-    }
 
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
     return true;
