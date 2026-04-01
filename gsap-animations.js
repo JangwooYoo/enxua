@@ -91,14 +91,21 @@ function initGSAP() {
 
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
+                // IMPORTANT: Refresh all ScrollTrigger positions to ensure cumulative 
+                // pin offsets are calculated accurately before navigating.
+                ScrollTrigger.refresh();
+
                 // Find the ScrollTrigger for this section or use offsetTop as fallback
                 const st = ScrollTrigger.getAll().find(s => s.trigger === targetElement);
-                const targetPos = st ? st.start : targetElement.offsetTop;
+                let targetPos = st ? st.start : targetElement.offsetTop;
+
+                // For the very first card (Section 1), always scroll to 0
+                if (targetElement.id === 'section-1') targetPos = 0;
 
                 gsap.to(window, {
-                    duration: 1.2,
-                    scrollTo: targetPos,
-                    ease: "power2.inOut",
+                    duration: 1.5,
+                    scrollTo: { y: targetPos, autoKill: false },
+                    ease: "power3.inOut",
                     overwrite: "auto"
                 });
             }

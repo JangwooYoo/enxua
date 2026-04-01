@@ -354,7 +354,8 @@ hr { border: 0; height: 1px; background: rgba(128,128,128,0.2); margin: 12px 0; 
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 0 5%;
+    padding: 100px 5% 80px;
+    overflow: hidden;
     background-color: var(--bg-color);
     border-bottom: 1px solid rgba(128,128,128,0.1);
     will-change: transform;
@@ -668,11 +669,11 @@ hr { border: 0; height: 1px; background: rgba(128,128,128,0.2); margin: 12px 0; 
 
 /* FAQ / GEO Section */
 .faq-container {
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0 40px;
+    padding: 100px 40px 60px;
     gap: 60px;
 }
 
