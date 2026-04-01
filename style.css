@@ -814,3 +814,19 @@ hr { border: 0; height: 1px; background: rgba(128,128,128,0.2); margin: 12px 0; 
     .contact-left, .contact-right { width: 100%; }
 }
 
+/* ─── Active Theme Indicator ──────────────────────────────────────────────── */
+.dropdown-content a[data-set-theme].theme-active {
+    color: var(--primary-color);
+    font-weight: 600;
+    background-color: rgba(var(--primary-color-rgb, 0, 102, 255), 0.08);
+    position: relative;
+}
+
+.dropdown-content a[data-set-theme].theme-active::after {
+    content: '✓';
+    position: absolute;
+    right: 16px;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+}
+
