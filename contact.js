@@ -164,10 +164,10 @@ function initContact() {
     // [문의하기] → highlight the form
     if (contactBtn) {
         contactBtn.addEventListener('click', () => {
-            // First scroll Section 7 into view if needed
-            const section7 = document.getElementById('section-7');
-            section7?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setTimeout(highlightForm, section7 ? 600 : 0);
+            // First scroll Section 8 into view if needed
+            const section8 = document.getElementById('section-8');
+            section8?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(highlightForm, section8 ? 600 : 0);
         });
     }
 }

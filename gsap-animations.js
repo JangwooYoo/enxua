@@ -1,5 +1,5 @@
 function initGSAP() {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     // Initial Sutera Typography Animation
     const words = document.querySelectorAll('.word');
@@ -80,16 +80,27 @@ function initGSAP() {
         }
     });
 
-    // Handle Anchor Links (Smooth scroll)
-    const anchorLinks = document.querySelectorAll('.anchor-menu a');
+    // Handle Anchor Links (GSAP-compatible smooth scroll)
+    const anchorLinks = document.querySelectorAll('.anchor-menu a, #btn-learn-more');
     anchorLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = e.target.getAttribute('href');
+            // Use currentTarget to always get the <a>'s href
+            const targetId = e.currentTarget.getAttribute('href');
+            if (!targetId || targetId === "#") return;
+
             const targetElement = document.querySelector(targetId);
-            
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
+                // Find the ScrollTrigger for this section or use offsetTop as fallback
+                const st = ScrollTrigger.getAll().find(s => s.trigger === targetElement);
+                const targetPos = st ? st.start : targetElement.offsetTop;
+
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: targetPos,
+                    ease: "power2.inOut",
+                    overwrite: "auto"
+                });
             }
         });
     });
