@@ -22,7 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 4. Initialize Chat Widget
     initChat();
-    
-    // 5. Initialize GSAP ScrollTrigger Animations
+
+    // 5. Initialize Contact Form
+    initContact();
+
+    // 6. Initialize GSAP ScrollTrigger Animations
     initGSAP();
 });
