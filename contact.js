@@ -34,6 +34,9 @@ function clearFieldError(groupId) {
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 function validateForm() {
+    const lang = localStorage.getItem('enxua_lang') || 'en';
+    const t = translations[lang] || translations['en'];
+
     const name    = document.getElementById('cf-name').value.trim();
     const email   = document.getElementById('cf-email').value.trim();
     const phone   = document.getElementById('cf-phone').value.trim();
@@ -42,28 +45,28 @@ function validateForm() {
 
     // Name
     if (!name) {
-        setFieldError('group-name', 'err-name', '이름을 입력해 주세요.');
+        setFieldError('group-name', 'err-name', t.err_name);
         valid = false;
     } else { clearFieldError('group-name'); }
 
     // Email
     if (!email) {
-        setFieldError('group-email', 'err-email', '이메일 주소를 입력해 주세요.');
+        setFieldError('group-email', 'err-email', t.err_email);
         valid = false;
     } else if (!isValidEmail(email)) {
-        setFieldError('group-email', 'err-email', '메일 형식이 유효하지 않습니다.');
+        setFieldError('group-email', 'err-email', t.err_email_invalid);
         valid = false;
     } else { clearFieldError('group-email'); }
 
     // Phone
     if (!phone) {
-        setFieldError('group-phone', 'err-phone', '연락처를 입력해 주세요.');
+        setFieldError('group-phone', 'err-phone', t.err_phone);
         valid = false;
     } else { clearFieldError('group-phone'); }
 
     // Message
     if (!message) {
-        setFieldError('group-message', 'err-message', '의견을 입력해 주세요.');
+        setFieldError('group-message', 'err-message', t.err_msg);
         valid = false;
     } else { clearFieldError('group-message'); }
 
@@ -139,10 +142,13 @@ function initContact() {
     // Form submit
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const lang = localStorage.getItem('enxua_lang') || 'en';
+        const t = translations[lang] || translations['en'];
+
         if (!validateForm()) return;
 
         submitBtn.disabled = true;
-        submitBtn.textContent = '전송 중...';
+        submitBtn.textContent = t.btn_sending;
 
         try {
             await sendEmail();
@@ -150,8 +156,8 @@ function initContact() {
         } catch (err) {
             console.error('EmailJS error:', err);
             submitBtn.disabled = false;
-            submitBtn.textContent = '문의 보내기';
-            alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+            submitBtn.textContent = t.form_submit;
+            alert(t.btn_send_error);
         }
     });
 
@@ -169,7 +175,9 @@ function initContact() {
     if (learnBtn) {
         learnBtn.addEventListener('click', () => {
             const faqSection = document.getElementById('section-faq');
-            faqSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (faqSection) {
+                faqSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     }
 }

@@ -26,6 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Initialize Contact Form
     initContact();
 
+    // 5.1 Initialize Download Alert
+    const downloadBtn = document.getElementById('btn-download');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const lang = localStorage.getItem('enxua_lang') || 'en';
+            const msg = translations[lang]?.download_msg || translations['en'].download_msg;
+            alert(msg);
+        });
+    }
+
     // 6. Initialize GSAP ScrollTrigger Animations
     initGSAP();
 });
