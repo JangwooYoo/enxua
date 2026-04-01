@@ -27,7 +27,7 @@
     applyTheme(savedTheme);
 
     /** Wire up click handlers once DOM is ready */
-    function initTheme() {
+    window.initTheme = function() {
         document.querySelectorAll('[data-set-theme]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -36,12 +36,7 @@
         });
         // Sync indicator in case DOM was not ready during first call
         updateActiveIndicator(savedTheme);
-    }
+    };
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initTheme);
-    } else {
-        initTheme();
-    }
 })();
 
