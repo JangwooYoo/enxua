@@ -170,14 +170,4 @@ function initContact() {
             setTimeout(highlightForm, section7 ? 600 : 0);
         });
     }
-
-    // [더 알아보기] → scroll to FAQ section
-    if (learnBtn) {
-        learnBtn.addEventListener('click', () => {
-            const faqSection = document.getElementById('section-faq');
-            if (faqSection) {
-                faqSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    }
 }
